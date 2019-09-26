@@ -34,7 +34,7 @@ public class TicketRestController {
 		List<ClientTicket> allTickets = ticketingService.getAllTicketsFromRepository();
 		if (allTickets == null || allTickets.isEmpty()) {
 			//throw new FileProcessingException("The ticket repository is currently inaccessible or empty!", finalURL);
-			throw new FileNotFoundException("The ticket repository is currently inaccessible or empty!" + "+" + finalURL);
+			throw new FileNotFoundException("The ticket repository is currently inaccessible, inexistent or empty! Please check your access rights for the support file before proceeding..." + "+" + finalURL);
 		}
 		return Response.status(Response.Status.OK).entity(allTickets).build();
 	}
@@ -47,7 +47,8 @@ public class TicketRestController {
 		ClientTicket actualActiveTicket = ticketingService.returnActiveTicket();
 		if (actualActiveTicket == null) {
 			//throw new FileProcessingException("The ticket repository is currently inaccessible or empty!No active ticket has currently been found as available!", finalURL);
-			throw new NotFoundException("The ticket repository is currently inaccessible or empty!No active ticket has currently been found as available!+" + finalURL);
+			throw new NotFoundException("The ticket repository is currently inaccessible, inexistent or empty - check your access rights for the support file! " +
+					                    "No active ticket has currently been found as available!+" + finalURL);
 		}
 		return Response.status(Response.Status.OK).entity(actualActiveTicket).build();
 	}
@@ -59,7 +60,8 @@ public class TicketRestController {
 		String finalURL = BASE_URL + "/registerNewTicket";
 		ClientTicket generatedTicket = ticketingService.generateNewTicket();
 		if (generatedTicket == null) {
-			throw new FileProcessingException("The ticket repository is currently inaccessible or empty!No new ticket registration is therefore possible at the moment!", finalURL);
+			throw new FileProcessingException("The ticket repository is currently inaccessible, inexistent or empty - check your access rights for the support file! " +
+					                          "No new ticket registration is therefore possible at the moment!", finalURL);
 		}		
 		return Response.status(Response.Status.CREATED).entity(generatedTicket).build();
 	}
@@ -71,8 +73,9 @@ public class TicketRestController {
 		String finalURL = BASE_URL + "/removeLastActiveTicket";
 	    ClientTicket lastActiveTicket = ticketingService.eraseLastActiveTicket();
 	    if (lastActiveTicket == null) {
-	    	throw new FileProcessingException("The ticket repository is currently inaccessible or empty!No ticket removal operation is therefore possible at the moment!", finalURL);
-	    }
+			throw new FileProcessingException("The ticket repository is currently inaccessible, inexistent or empty - check your access rights for the support file! " +
+					                          "No ticket removal operation is therefore possible at the moment!", finalURL);
+		}
 	    String removalOutcome = "The following ticket has been removed from the queue:" + lastActiveTicket.toString();	    
 	    return Response.status(Response.Status.RESET_CONTENT).header("Removal-Success", removalOutcome).build();
 	}
