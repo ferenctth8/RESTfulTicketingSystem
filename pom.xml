@@ -88,12 +88,6 @@
 			<artifactId>jersey-media-multipart</artifactId>
 			<version>${jersey.version}</version>
 		</dependency>
-		<!-- GlassFish Moxy converter package -->
-		<!-- <dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-moxy</artifactId>
-			<version>${jersey.version}</version>		
-		</dependency> -->
 		<!-- Spring + GlassFish integrator -->
 		<dependency>
 			<groupId>org.glassfish.jersey.ext</groupId>
