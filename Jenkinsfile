@@ -16,14 +16,14 @@ pipeline {
                 echo "DISABLE_AUTH is ${DISABLE_AUTH}"
                 sh 'printenv'
             }
-            post {
+            /*post {
               success {
                  archiveArtifacts 'target/*.hpi,target/*.jpi'
               }
               always {
-                 junit '**/build/test-reports/*.xml'
+                 //junit '
               }
-            }
+            }*/
         }
     }
     post {
