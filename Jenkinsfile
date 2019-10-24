@@ -9,33 +9,21 @@ pipeline {
     }
 
     stages {
-        /*stage('build') {
+        stage('build') {
             steps {
                 sh 'mvn --version'
                 echo "Database engine is ${DB_ENGINE}"
                 echo "DISABLE_AUTH is ${DISABLE_AUTH}"
                 sh 'printenv'
             }
-        }*/
-        stage('Build') {
-          steps {
-              sh './gradlew build'
-          }
-          post {
-            success {
-              archiveArtifacts 'target/*.hpi,target/*.jpi'
+            post {
+              success {
+                 archiveArtifacts 'target/*.hpi,target/*.jpi'
+              }
+              always {
+                 junit 'build/reports/**/*.xml'
+              }
             }
-          }
-        }
-        stage('Test') {
-          steps {
-              sh './gradlew check'
-          }
-          post {
-             always {
-               junit 'build/reports/**/*.xml'
-             }
-          }
         }
     }
     post {
