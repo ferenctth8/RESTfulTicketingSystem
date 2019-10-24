@@ -21,18 +21,26 @@ pipeline {
           steps {
               sh './gradlew build'
           }
+          post {
+            success {
+              archiveArtifacts 'target/*.hpi,target/*.jpi'
+            }
+          }
         }
         stage('Test') {
           steps {
               sh './gradlew check'
+          }
+          post {
+             always {
+               junit 'build/reports/**/*.xml'
+             }
           }
         }
     }
     post {
       always {
          echo 'This will always run'
-         archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
-         junit 'build/reports/**/*.xml'
       }
       success {
          echo 'This will run only if successful'
