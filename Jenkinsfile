@@ -21,7 +21,7 @@ pipeline {
                  archiveArtifacts 'target/*.hpi,target/*.jpi'
               }
               always {
-                 junit 'build/reports/**/*.xml'
+                 junit 'build/reports/TEST-REPORTS.xml'
               }
             }
         }
