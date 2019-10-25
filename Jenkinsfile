@@ -11,10 +11,12 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'mvn --version'
+                //sh 'mvn --version'
+                bat 'mvn --version'
                 echo "Database engine is ${DB_ENGINE}"
                 echo "DISABLE_AUTH is ${DISABLE_AUTH}"
-                sh 'printenv'
+                //sh 'printenv'
+                bat 'printenv'
             }
             /*post {
               success {
@@ -28,7 +30,8 @@ pipeline {
 
         stage('No-op'){
             steps {
-                sh 'ls'
+                //sh 'ls'
+                bat 'dir'
             }
         }
     }
