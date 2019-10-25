@@ -30,7 +30,7 @@ pipeline {
     post {
       always {
          echo 'This will always run, one way or another'
-         junit 'build/reports/**/*.xml'
+         junit 'tests/results/*.xml'
          //deleteDir() /* General workspace cleanup */
       }
       success {
